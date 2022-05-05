@@ -1,6 +1,6 @@
 # Greetings Moodle Acad. #
 
-TODO Describe the plugin shortly here.
+Plugin de Prueba "Greetings"
 
 TODO Provide more detailed description here.
 

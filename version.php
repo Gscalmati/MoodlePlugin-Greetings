@@ -21,9 +21,8 @@
  * @copyright   2022 Giovanni <giovanni.scalmati@hospitalitaliano.org.ar>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
+// Linea pensada para evitar que Moodle lea este archivo desde adentro del sistema.
 defined('MOODLE_INTERNAL') || die();
-
 $plugin->component = 'local_greetings';
 $plugin->release = '0.1.0';
 $plugin->version = 2022050500;

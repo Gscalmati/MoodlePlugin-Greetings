@@ -20,9 +20,6 @@
  * @package     local_greetings
  * @category    string
  * @copyright   2022 Giovanni <giovanni.scalmati@hospitalitaliano.org.ar>
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later*/
 defined('MOODLE_INTERNAL') || die();
-
 $string['pluginname'] = 'Greetings Moodle Acad.';
