@@ -21,28 +21,23 @@
  * @copyright   2022 Giovanni <giovanni.scalmati@hospitalitaliano.org.ar>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once('../../config.php');
-require_once($CFG->dirroot. '/local/greetings/lib.php');
+defined('MOODLE_INTERNAL') || die();
 
-$context = context_system::instance();
+function local_greetings_get_greeting($user) {
+    if ($user == null) {
+        return get_string('greetinguser', 'local_greetings');
+    }
 
-$PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/local/greetings/index.php'));
-$PAGE->set_pagelayout('standard');
-// Con PAGE-> SET_TITLE defino el nombre de la pagina.
-$PAGE->set_title("Greetings Students");
-$PAGE->set_heading(get_string('pluginname', 'local_greetings'));
+    $country = $user->country;
 
-echo $OUTPUT->header();
+    switch ($country) {
+        case 'ES':
+            $langstr = 'greetinguseres';
+            break;
+        default:
+            $langstr = 'greetingloggedinuser';
+            break;
+    }
 
-echo local_greetings_get_greeting($USER);
-
-echo '<hr>';
-// Time() funcion que trae el tiempo del equipo del usuario.
-$now = time();
-echo userdate($now);
-echo '<hr>';
-// Format_Float() funcion que le da formato mas normal a las variables double.
-$grade = 20.00 / 3;
-echo format_float($grade, 2);
-echo $OUTPUT->footer();
+    return get_string($langstr, 'local_greetings', fullname($user));
+}

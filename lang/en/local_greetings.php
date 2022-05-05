@@ -23,3 +23,10 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later*/
 defined('MOODLE_INTERNAL') || die();
 $string['pluginname'] = 'Greetings Moodle Acad.';
+
+$string['greetinguser'] = 'Greetings, user.';
+$string['greetingloggedinuser'] = 'Greetings, {$a}.';
+$string['greetinguserau'] = 'Hello, {$a}.';
+$string['greetinguseres'] = 'Hola, {$a}.';
+$string['greetinguserfj'] = 'Bula, {$a}.';
+$string['greetingusernz'] = 'Kia Ora, {$a}.';
