@@ -23,26 +23,39 @@
  */
 require_once('../../config.php');
 require_once($CFG->dirroot. '/local/greetings/lib.php');
+require_once($CFG->dirroot. '/local/greetings/message_form.php');
 
 $context = context_system::instance();
-
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/local/greetings/index.php'));
 $PAGE->set_pagelayout('standard');
+
 // Con PAGE-> SET_TITLE defino el nombre de la pagina.
 $PAGE->set_title("Greetings Students");
 $PAGE->set_heading(get_string('pluginname', 'local_greetings'));
 
+// Cuerpo del site.
+$messageform = new local_greetings_message_form();
 echo $OUTPUT->header();
-
 echo local_greetings_get_greeting($USER);
-
 echo '<hr>';
+// Display del form -> $messageform.
+$messageform->display();
+// Consulto si se llenó la data.
+if ($data = $messageform->get_data()) {
+    // Var_dump($data); --> Funciona como verificador estándar para ver qué devuelve el form.
+    $message = required_param('message', PARAM_TEXT);
+
+    echo $OUTPUT->heading($message, 4);
+}
+
 // Time() funcion que trae el tiempo del equipo del usuario.
+echo '<hr>';
 $now = time();
 echo userdate($now);
 echo '<hr>';
+
 // Format_Float() funcion que le da formato mas normal a las variables double.
-$grade = 20.00 / 3;
+/* $grade = 20.00 / 3;
 echo format_float($grade, 2);
-echo $OUTPUT->footer();
+echo $OUTPUT->footer(); */
