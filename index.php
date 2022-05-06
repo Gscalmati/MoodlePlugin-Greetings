@@ -36,17 +36,44 @@ $PAGE->set_heading(get_string('pluginname', 'local_greetings'));
 
 // Cuerpo del site.
 $messageform = new local_greetings_message_form();
+
 echo $OUTPUT->header();
 echo local_greetings_get_greeting($USER);
 echo '<hr>';
+
 // Display del form -> $messageform.
 $messageform->display();
+// Traigo los records de la BD de Local_greetings_msgs
+$messages = $DB->get_records('local_greetings_msgs');
+// Foreach para imprimirlos
+echo $OUTPUT->box_start('card-columns');
+
+foreach ($messages as $m) {
+    echo html_writer::start_tag('div', array('class' => 'card'));
+    echo html_writer::start_tag('div', array('class' => 'card-body'));
+    echo html_writer::tag('p', $m->text, array('class' => 'h3'));
+    echo html_writer::start_tag('p', array('class' => 'card-text'));
+    echo html_writer::tag('small', userdate($m->timecreated), array('class' => 'text-muted'));
+    echo html_writer::end_tag('p');
+    echo html_writer::end_tag('div');
+    echo html_writer::end_tag('div');
+}
+
+echo $OUTPUT->box_end();
 // Consulto si se llenó la data.
 if ($data = $messageform->get_data()) {
     // Var_dump($data); --> Funciona como verificador estándar para ver qué devuelve el form.
+
     $message = required_param('message', PARAM_TEXT);
 
-    echo $OUTPUT->heading($message, 4);
+    // echo $OUTPUT->heading($message, 4); - Esto seria para escribirlo en pleno Body
+    if (!empty($message)) {
+        $record = new stdClass;
+        $record->text = $message;
+        $record->timecreated = time();
+
+        $DB->insert_record('local_greetings_msgs', $record);
+    }
 }
 
 // Time() funcion que trae el tiempo del equipo del usuario.
